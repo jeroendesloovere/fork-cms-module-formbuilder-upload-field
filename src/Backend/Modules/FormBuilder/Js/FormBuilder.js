@@ -184,6 +184,9 @@ jsBackend.formBuilder.fields =
 									case 'textareaDialog':
 										jsBackend.formBuilder.fields.saveTextarea();
 										break;
+									case 'fileDialog':
+										jsBackend.formBuilder.fields.saveFile();
+										break;
 									case 'datetimeDialog':
 										jsBackend.formBuilder.fields.saveDatetime();
 										break;
@@ -463,6 +466,34 @@ jsBackend.formBuilder.fields =
 
 								// show dialog
 								$('#textareaDialog').dialog('open');
+							}
+
+							// file edit
+							else if(data.data.field.type == 'file')
+							{
+								// fill in form
+								$('#fileId').val(data.data.field.id);
+								$('#fileLabel').val(utils.string.htmlDecode(data.data.field.settings.label));
+								$('#fileValue').val(utils.string.htmlDecode(data.data.field.settings.default_values));
+								$.each(data.data.field.validations, function(k, v)
+								{
+									// required checkbox
+									if(k == 'required')
+									{
+										$('#fileRequired').prop('checked', true);
+										$('#fileRequiredErrorMessage').val(utils.string.htmlDecode(v.error_message));
+									}
+									
+									// dropdown
+									else
+									{
+										$('#fileValidation').val(v.type);
+										$('#fileErrorMessage').val(utils.string.htmlDecode(v.error_message));
+									}
+								});
+								
+								// show dialog
+								$('#fileDialog').dialog('open');
 							}
 
 							// datetime edit
@@ -998,6 +1029,80 @@ jsBackend.formBuilder.fields =
 
 				// alert the user
 				if(data.code != 200 && jsBackend.debug) alert(data.message);
+			}
+		});
+	},
+
+	/**
+	 * Handle file save
+	 */
+	saveFile: function()
+	{
+		// init vars
+		var fieldId = $('#fileId').val();
+		var type = 'file';
+		var label = $('#fileLabel').val();
+		var value = $('#fileValue').val();
+		var required = ($('#fileRequired').is(':checked') ? 'Y' : 'N');
+		var requiredErrorMessage = $('#fileRequiredErrorMessage').val();
+		var validation = $('#fileValidation').val();
+		var validationParameter = $('#fileValidationParameter').val();
+		var errorMessage = $('#fileErrorMessage').val();
+
+		// make the call
+		$.ajax(
+		{
+			data: $.extend(jsBackend.formBuilder.fields.paramsSave,
+			{
+				form_id: jsBackend.formBuilder.formId,
+				field_id: fieldId,
+				type: type,
+				label: label,
+				placeholder: '',
+				default_values: value,
+				required: required,
+				required_error_message: requiredErrorMessage,
+				validation: validation,
+				validation_parameter: validationParameter,
+				error_message: errorMessage
+			}),
+			success: function(data, textStatus)
+			{
+				// success
+				if(data.code == 200)
+				{
+					// clear errors
+					$('.formError').html('');
+
+					// form contains errors
+					if(typeof data.data.errors != 'undefined')
+					{
+						// assign errors
+						if(typeof data.data.errors.label != 'undefined') $('#fileLabelError').html(data.data.errors.label);
+						if(typeof data.data.errors.required_error_message != 'undefined') $('#fileRequiredErrorMessageError').html(data.data.errors.required_error_message);
+						if(typeof data.data.errors.error_message != 'undefined') $('#fileErrorMessageError').html(data.data.errors.error_message);
+						if(typeof data.data.errors.validation_parameter != 'undefined') $('#fileValidationParameterError').html(data.data.errors.validation_parameter);
+						
+						// toggle error messages
+						jsBackend.formBuilder.fields.toggleValidationErrors('fileDialog');
+					}
+
+					// saved!
+					else
+					{
+						// append field html
+						jsBackend.formBuilder.fields.setField(data.data.field_id, data.data.field_html);
+						
+						// close console box
+						$('#fileDialog').dialog('close');
+					}
+				}
+				
+				// show error message 
+				else{ jsBackend.messages.add('error', textStatus); }
+				
+				// alert the user
+				if(data.code != 200 && jsBackend.debug){ alert(data.message); }
 			}
 		});
 	},

@@ -114,6 +114,13 @@ class Helper
 
                 // get content
                 $fieldHTML = $chk->parse();
+            } elseif ($field['type'] == 'file') {
+                // create element
+                $file = $frm->addFile($fieldName);
+                $file->setAttribute('disabled', 'disabled');
+
+                // get content
+                $fieldHTML = $file->parse();
             } elseif ($field['type'] == 'textbox') {
                 // create element
                 $txt = $frm->addText($fieldName, $defaultValues);

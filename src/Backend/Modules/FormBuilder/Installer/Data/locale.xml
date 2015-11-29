@@ -193,6 +193,17 @@
         <translation language="lt"><![CDATA[laukeliai]]></translation>
         <translation language="el"><![CDATA[Πεδία]]></translation>
       </item>
+      <item type="label" name="FileExtension">
+        <translation language="nl"><![CDATA[bestandsextensie]]></translation>
+        <translation language="en"><![CDATA[file extension]]></translation>
+        <translation language="it"><![CDATA[estensione del file]]></translation>
+        <translation language="ru"><![CDATA[Расширение файла]]></translation>
+        <translation language="cn"><![CDATA[文件扩展名]]></translation>
+        <translation language="fr"><![CDATA[extension de fichier]]></translation>
+        <translation language="hu"><![CDATA[fájlkiterjesztés]]></translation>
+        <translation language="de"><![CDATA[Dateierweiterung]]></translation>
+        <translation language="es"><![CDATA[extensión de archivo]]></translation>
+      </item>
       <item type="label" name="FormData">
         <translation language="nl"><![CDATA[inzendingen van "%1$s"]]></translation>
         <translation language="en"><![CDATA[submissions for "%1$s"]]></translation>
@@ -252,6 +263,12 @@
         <translation language="sv"><![CDATA[identifierare]]></translation>
         <translation language="lt"><![CDATA[identifikatorius]]></translation>
         <translation language="el"><![CDATA[Αναγνωριστικό]]></translation>
+      </item>
+      <item type="label" name="ImageExtension">
+        <translation language="nl"><![CDATA[afbeeldingssextensie]]></translation>
+        <translation language="en"><![CDATA[image extension]]></translation>
+        <translation language="it"><![CDATA[estensione del image]]></translation>
+        <translation language="fr"><![CDATA[extension de l'image]]></translation>
       </item>
       <item type="label" name="Method">
         <translation language="nl"><![CDATA[methode]]></translation>
@@ -435,6 +452,10 @@
         <translation language="sv"><![CDATA[radiokanpp]]></translation>
         <translation language="el"><![CDATA[Πλήκτρο μοναδικής επιλογής]]></translation>
       </item>
+      <item type="label" name="SubmitterInfoMessage">
+        <translation language="nl"><![CDATA[uw boodschap die vermeld moet worden in de bevestigingsmail aan de invuller van dit formulier]]></translation>
+        <translation language="en"><![CDATA[what do you want to say in the e-mail to the person who fills in this form]]></translation>
+      </item>
       <item type="label" name="Recipient">
         <translation language="nl"><![CDATA[bestemmeling]]></translation>
         <translation language="en"><![CDATA[recipient]]></translation>
@@ -469,6 +490,10 @@
         <translation language="uk"><![CDATA[Обов'язкове]]></translation>
         <translation language="sv"><![CDATA[obligatoriskt]]></translation>
         <translation language="el"><![CDATA[Απαιτείται]]></translation>
+      </item>
+      <item type="label" name="SendMailToSubmitter">
+        <translation language="nl"><![CDATA[bovenstaande tekst moet verzonden worden naar de invuller van het formulier]]></translation>
+        <translation language="en"><![CDATA[the above message has to be send in a mail to the submitter of this form]]></translation>
       </item>
       <item type="label" name="SecondsAgo">
         <translation language="nl"><![CDATA[%1$s seconden geleden]]></translation>

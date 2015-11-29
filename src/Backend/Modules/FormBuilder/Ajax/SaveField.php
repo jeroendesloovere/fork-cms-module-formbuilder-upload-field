@@ -34,7 +34,7 @@ class SaveField extends BackendBaseAJAXAction
         $fieldId = \SpoonFilter::getPostValue('field_id', null, '', 'int');
         $type = \SpoonFilter::getPostValue(
             'type',
-            array('checkbox', 'dropdown', 'datetime', 'heading', 'paragraph', 'radiobutton', 'submit', 'textarea', 'textbox'),
+            array('checkbox', 'dropdown', 'datetime', 'heading', 'paragraph', 'radiobutton', 'file', 'submit', 'textarea', 'textbox'),
             '',
             'string'
         );
@@ -48,7 +48,7 @@ class SaveField extends BackendBaseAJAXAction
         $placeholder = trim(\SpoonFilter::getPostValue('placeholder', null, '', 'string'));
         $required = \SpoonFilter::getPostValue('required', array('Y','N'), 'N', 'string');
         $requiredErrorMessage = trim(\SpoonFilter::getPostValue('required_error_message', null, '', 'string'));
-        $validation = \SpoonFilter::getPostValue('validation', array('email', 'numeric', 'time'), '', 'string');
+        $validation = \SpoonFilter::getPostValue('validation', array('email', 'numeric', 'file_extension', 'image_extension', 'time'), '', 'string');
         $validationParameter = trim(\SpoonFilter::getPostValue('validation_parameter', null, '', 'string'));
         $errorMessage = trim(\SpoonFilter::getPostValue('error_message', null, '', 'string'));
 
@@ -73,7 +73,7 @@ class SaveField extends BackendBaseAJAXAction
                     $this->output(self::BAD_REQUEST, null, 'invalid type provided');
                 } else {
                     // extra validation is only possible for textfields & datetime fields
-                    if ($type != 'textbox' && $type != 'datetime') {
+                    if ($type != 'textbox' && $type != 'datetime' && $type != 'file') {
                         $validation = '';
                         $validationParameter = '';
                         $errorMessage = '';
@@ -82,8 +82,19 @@ class SaveField extends BackendBaseAJAXAction
                     // init
                     $errors = array();
 
+                    // validate file
+                    if ($type == 'file') {
+                        if($label == '') {
+                            $errors['label'] = BL::getError('LabelIsRequired');
+                        }
+                        if($required == 'Y' && $requiredErrorMessage == '') {
+                            $errors['required_error_message'] = BL::getError('ErrorMessageIsRequired');
+                        }
+                        if($validation != '' && $errorMessage == '') {
+                            $errors['error_message'] = BL::getError('ErrorMessageIsRequired');
+                        }
                     // validate textbox
-                    if ($type == 'textbox') {
+                    } elseif ($type == 'textbox') {
                         if ($label == '') {
                             $errors['label'] = BL::getError('LabelIsRequired');
                         }

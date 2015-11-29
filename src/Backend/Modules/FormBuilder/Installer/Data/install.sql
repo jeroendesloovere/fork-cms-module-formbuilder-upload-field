@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS `forms` (
   `method` enum('database','database_email') NOT NULL default 'database_email',
   `email` text,
   `success_message` text,
+  `send_mail_to_submitter` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT 'N',
+  `submitter_info_message` text,
   `identifier` varchar(255) NOT NULL,
   `created_on` datetime NOT NULL,
   `edited_on` datetime NOT NULL,
@@ -34,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `forms_data_fields` (
 CREATE TABLE IF NOT EXISTS `forms_fields` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `form_id` int(11) unsigned NOT NULL,
-  `type` enum('textbox','textarea', 'datetime', 'dropdown','checkbox','radiobutton','heading','paragraph','submit') NOT NULL,
+  `type` enum('textbox','textarea', 'datetime', 'dropdown','checkbox','radiobutton','file','heading','paragraph','submit') NOT NULL,
   `settings` text collate utf8_unicode_ci,
   `sequence` int(11) NULL,
   PRIMARY KEY  (`id`),
@@ -45,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `forms_fields` (
 CREATE TABLE IF NOT EXISTS `forms_fields_validation` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `field_id` int(11) unsigned NOT NULL,
-  `type` enum('required','email','numeric','time') NOT NULL,
+  `type` enum('required','email','numeric','file_extension','image_extension','time') NOT NULL,
   `parameter` varchar(255) default NULL COMMENT 'If you want to validate higher then a number, the number would be the parameter',
   `error_message` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),

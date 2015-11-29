@@ -40,7 +40,21 @@
 				<div class="optionsRTE">
 					{$txtSuccessMessage} {$txtSuccessMessageError}
 				</div>
-			</div>		</div>
+			</div>
+			<div class="options">
+				<div class="heading">
+					<h3>
+						<label for="receiverInfoMessage">{$lblReceiverInfoMessage|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
+					</h3>
+				</div>
+				<div class="optionsRTE">
+					{$txtReceiverInfoMessage} {$txtReceiverInfoMessageError}
+				</div>
+				<div class="options">
+					<label>{$chkSendMailToSubmitter} {$lblSendMailToSubmitter}?</label>
+				</div>
+			</div>
+		</div>
 
 		<div id="tabExtra" class="box">
 			<div class="horizontal">

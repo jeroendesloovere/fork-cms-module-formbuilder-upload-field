@@ -55,6 +55,8 @@ class Add extends BackendBaseActionAdd
         $this->frm->addText('email');
         $this->frm->addText('identifier', BackendFormBuilderModel::createIdentifier());
         $this->frm->addEditor('success_message');
+        $this->frm->addCheckbox('send_mail_to_submitter')
+        $this->frm->addEditor('submitter_info_message');
     }
 
     /**
@@ -70,6 +72,8 @@ class Add extends BackendBaseActionAdd
             $txtEmail = $this->frm->getField('email');
             $ddmMethod = $this->frm->getField('method');
             $txtSuccessMessage = $this->frm->getField('success_message');
+            $chkSendMailToSubmitter = $this->frm->getField('send_mail_to_submitter');
+            $txtSubmitterInfoMessage = $this->frm->getField('submitter_info_message');
             $txtIdentifier = $this->frm->getField('identifier');
 
             $emailAddresses = (array) explode(',', $txtEmail->getValue());
@@ -77,6 +81,7 @@ class Add extends BackendBaseActionAdd
             // validate fields
             $txtName->isFilled(BL::getError('NameIsRequired'));
             $txtSuccessMessage->isFilled(BL::getError('SuccessMessageIsRequired'));
+            $txtSubmitterInfoMessage->isFilled(BL::getError('SubmitterInfoMessageIsRequired'));
             if ($ddmMethod->isFilled(BL::getError('NameIsRequired')) && $ddmMethod->getValue() == 'database_email') {
                 $error = false;
 
@@ -114,6 +119,8 @@ class Add extends BackendBaseActionAdd
                 $values['name'] = $txtName->getValue();
                 $values['method'] = $ddmMethod->getValue();
                 $values['email'] = ($ddmMethod->getValue() == 'database_email') ? serialize($emailAddresses) : null;
+                $values['send_mail_to_submitter'] = ($chkSendMailToSubmitter->isChecked()) ? 'Y' : 'N';
+                $values['submitter_info_message'] = $txtSubmitterInfoMessage->getValue(true);
                 $values['success_message'] = $txtSuccessMessage->getValue(true);
                 $values['identifier'] = ($txtIdentifier->isFilled() ?
                     $txtIdentifier->getValue() :

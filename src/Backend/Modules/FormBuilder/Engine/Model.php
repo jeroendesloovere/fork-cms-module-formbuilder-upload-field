@@ -355,6 +355,8 @@ class Model
         $errors['required'] = FL::getError('FieldIsRequired');
         $errors['email'] = FL::getError('EmailIsInvalid');
         $errors['numeric'] = FL::getError('NumericCharactersOnly');
+        $errors['file_extension'] = FL::getError('FileExtensionIsInvalid');
+        $errors['image_extension'] = FL::getError('ImageExtensionIsInvalid');
         $errors['time'] = FL::getError('TimeIsInvalid');
 
         // specific type

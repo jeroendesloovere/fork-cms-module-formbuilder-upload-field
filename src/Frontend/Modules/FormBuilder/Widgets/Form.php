@@ -281,6 +281,21 @@ class Form extends FrontendBaseWidget
 
                     // get content
                     $item['html'] = $txt->parse();
+                // file
+                } elseif ($field['type'] == 'file') {
+                    if (isset($field['validations']['file_extension'])) {
+                        // create element
+                        $file = $this->frm->addFile($item['name']);
+
+                        // get content
+                        $item['html'] = $file->parse();
+                    } elseif (isset($field['validations']['image_extension'])) {
+                        // create element
+                        $image = $this->frm->addImage($item['name']);
+
+                        // get content
+                        $item['html'] = $image->parse();
+                    }
                 } elseif ($field['type'] == 'heading') {
                     $item['html'] = '<h3>' . $values . '</h3>';
                 } elseif ($field['type'] == 'paragraph') {
@@ -437,6 +452,40 @@ class Form extends FrontendBaseWidget
                         if (!\SpoonFilter::isValidAgainstRegexp($regexTime, $this->frm->getField($fieldName)->getValue())) {
                             $this->frm->getField($fieldName)->setError($settings['error_message']);
                         }
+                    // file extension
+                    } elseif ($rule == 'file_extension') {
+                        if ($this->frm->getField($fieldName)->isFilled()) {
+                            // validate extension against these
+                            if ($this->frm->getField($fieldName)->isAllowedExtension(
+                                array(
+                                    'doc',
+                                    'docx',
+                                    'xls',
+                                    'xlsx',
+                                    'ppt',
+                                    'pptx',
+                                    'txt',
+                                    'rtf',
+                                    'pdf'
+                                ),
+                                $settings['error_message']
+                            )) {}
+                        }
+                    // image extension
+                    } elseif ($rule == 'image_extension') {
+                        if ($this->frm->getField($fieldName)->isFilled()) {
+                            // validate extension against these
+                            if ($this->frm->getField($fieldName)->isAllowedExtension(
+                                array(
+                                    'gif',
+                                    'jpg',
+                                    'jpeg',
+                                    'png',
+                                    'tiff'
+                                ),
+                                $settings['error_message']
+                            )) {}
+                        }
                     }
                 }
             }
@@ -465,7 +514,36 @@ class Form extends FrontendBaseWidget
                     // field data
                     $fieldData['data_id'] = $dataId;
                     $fieldData['label'] = $field['settings']['label'];
-                    $fieldData['value'] = $this->frm->getField('field' . $field['id'])->getValue();
+
+                    if ($field['type'] != 'file') {
+                        $fieldData['value'] = $this->frm->getField('field' . $field['id'])->getValue();
+                    }
+
+                    // field file
+                    if ($field['type'] == 'file') {
+                        // create new filename
+                        $filename = $this->frm->getField('field' . $field['id'])->getFileName(false);
+                        if(empty($filename)) {
+                            $filename = $this->frm->getField('field' . $field['id'])->getFileName(true);
+                        }
+
+                        // field value
+                        $fieldData['value'] = rand(0, 10)
+                            . '_f' . $field['id']
+                            . '_' . $filename .
+                            '.' . $this->frm->getField('field' . $field['id'])->getExtension()
+                        ;
+
+                        // move the file
+                        $this->frm->getField('field' . $field['id'])->moveFile(
+                            FRONTEND_FILES_PATH . '/form_builder/' . $fieldData['value']
+                        );
+
+                        // get url for file
+                        if($field['type']=='file') {
+                            $fieldData['value'] = '<a href="' . FRONTEND_FILES_URL . '/form_builder/' . $fieldData['value'] . '">' . $fieldData['value'] . '</a>';
+                        }
+                    }
 
                     if ($field['type'] == 'radiobutton') {
                         $values = array();

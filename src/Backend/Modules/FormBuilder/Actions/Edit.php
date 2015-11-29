@@ -72,6 +72,24 @@ class Edit extends BackendBaseActionEdit
         $this->frm->addText('email', implode(',', (array) $this->record['email']));
         $this->frm->addText('identifier', $this->record['identifier']);
         $this->frm->addEditor('success_message', $this->record['success_message']);
+        $this->frm->addCheckbox('send_mail_to_submitter', ($this->record['send_mail_to_submitter'] == 'Y'));
+        $this->frm->addEditor('submitter_info_message', $this->record['submitter_info_message']);
+
+        // file dialog
+        $this->frm->addText('file_label');
+        $this->frm->addText('file_value');
+        $this->frm->addCheckbox('file_required');
+        $this->frm->addText('file_required_error_message');
+        $this->frm->addDropdown(
+            'file_validation',
+            array(
+                '' => '',
+                'file_extension' => BL::getLabel('FileExtension'),
+                'image_extension' => BL::getLabel('ImageExtension'),
+            )
+        );
+        $this->frm->addText('file_validation_parameter');
+        $this->frm->addText('file_error_message');
 
         // textfield dialog
         $this->frm->addText('textbox_label');
@@ -262,6 +280,8 @@ class Edit extends BackendBaseActionEdit
             $txtEmail = $this->frm->getField('email');
             $ddmMethod = $this->frm->getField('method');
             $txtSuccessMessage = $this->frm->getField('success_message');
+            $chkSendMailToSubmitter = $this->frm->getField('send_mail_to_submitter');
+            $txtSubmitterInfoMessage = $this->frm->getField('submitter_info_message');
             $txtIdentifier = $this->frm->getField('identifier');
 
             $emailAddresses = (array) explode(',', $txtEmail->getValue());
@@ -269,6 +289,7 @@ class Edit extends BackendBaseActionEdit
             // validate fields
             $txtName->isFilled(BL::getError('NameIsRequired'));
             $txtSuccessMessage->isFilled(BL::getError('SuccessMessageIsRequired'));
+            $txtSubmitterInfoMessage->isFilled(BL::getError('SubmitterInfoMessageIsRequired'));
             if ($ddmMethod->isFilled(BL::getError('NameIsRequired')) && $ddmMethod->getValue() == 'database_email') {
                 $error = false;
 
@@ -303,6 +324,8 @@ class Edit extends BackendBaseActionEdit
                 $values['name'] = $txtName->getValue();
                 $values['method'] = $ddmMethod->getValue();
                 $values['email'] = ($ddmMethod->getValue() == 'database_email') ? serialize($emailAddresses) : null;
+                $values['send_mail_to_submitter'] = ($chkSendMailToSubmitter->isChecked()) ? 'Y' : 'N';
+                $values['submitter_info_message'] = $txtSubmitterInfoMessage->getValue(true);
                 $values['success_message'] = $txtSuccessMessage->getValue(true);
                 $values['identifier'] = ($txtIdentifier->isFilled() ?
                     $txtIdentifier->getValue() :

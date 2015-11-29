@@ -179,6 +179,10 @@
 		#formElements .options li#checkboxSelector a {
 			background-position: 10px -130px;
 		}
+		
+		#formElements .options li#fileSelector a {
+			background-position: 10px -40px;
+		}
 
 		#formElements .options li#radiobuttonSelector a {
 			background-position: 10px -160px;

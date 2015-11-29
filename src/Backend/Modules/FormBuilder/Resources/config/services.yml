@@ -1,6 +1,12 @@
 services:
     formbuilder.submitted.mailer:
-        class: Frontend\Modules\FormBuilder\EventListener\FormBuilderSubmittedMailSubscriber
+        class: Frontend\Modules\FormBuilder\EventListener\FormBuilderSubmittedMailToSubscriber
+        arguments:
+            - @mailer
+        tags:
+            - { name: kernel.event_listener, event: form.submitted, method: onFormSubmitted }
+    formbuilder.submitted.mailer.to_subscriber:
+        class: Frontend\Modules\FormBuilder\EventListener\FormBuilderSubmittedMailToSubmitterSubscriber
         arguments:
             - @mailer
         tags:
