@@ -81,7 +81,11 @@ class Add extends BackendBaseActionAdd
             // validate fields
             $txtName->isFilled(BL::getError('NameIsRequired'));
             $txtSuccessMessage->isFilled(BL::getError('SuccessMessageIsRequired'));
-            $txtSubmitterInfoMessage->isFilled(BL::getError('SubmitterInfoMessageIsRequired'));
+
+            if ($chkSendMailToSubmitter->isChecked()) {
+                $txtSubmitterInfoMessage->isFilled(BL::getError('SubmitterInfoMessageIsRequired'));
+            }
+
             if ($ddmMethod->isFilled(BL::getError('NameIsRequired')) && $ddmMethod->getValue() == 'database_email') {
                 $error = false;
 

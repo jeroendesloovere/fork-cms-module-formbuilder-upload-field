@@ -93,6 +93,9 @@ class SaveField extends BackendBaseAJAXAction
                         if($validation != '' && $errorMessage == '') {
                             $errors['error_message'] = BL::getError('ErrorMessageIsRequired');
                         }
+                        if ($validation == '') {
+                            $errors['validation_parameter'] = BL::getError('FileValidationIsRequired');
+                        }
                     // validate textbox
                     } elseif ($type == 'textbox') {
                         if ($label == '') {

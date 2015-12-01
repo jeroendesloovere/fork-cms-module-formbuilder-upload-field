@@ -3,6 +3,7 @@
 namespace Frontend\Modules\FormBuilder\Widgets;
 
 use Common\Exception\RedirectException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
 use Frontend\Core\Engine\Form as FrontendForm;
 use Frontend\Core\Engine\Language as FL;
@@ -11,7 +12,6 @@ use Frontend\Core\Engine\Template as FrontendTemplate;
 use Frontend\Modules\FormBuilder\Engine\Model as FrontendFormBuilderModel;
 use Frontend\Modules\FormBuilder\FormBuilderEvents;
 use Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * This is the form widget.
@@ -413,6 +413,9 @@ class Form extends FrontendBaseWidget
                 }
             }
 
+            // mb
+            $maximumFileSize = '20';
+
             // validate fields
             foreach ($this->item['fields'] as $field) {
                 // field name
@@ -470,6 +473,15 @@ class Form extends FrontendBaseWidget
                                 ),
                                 $settings['error_message']
                             )) {}
+
+                            if ($this->frm->getField($fieldName)->getFileSize('mb') > $maximumFileSize) {
+                                $this->frm->getField($fieldName)->setError(
+                                    sprintf(
+                                        FL::err('MaximumFileSizeExceeded'),
+                                        $maximumFileSize
+                                    )
+                                );
+                            }
                         }
                     // image extension
                     } elseif ($rule == 'image_extension') {
@@ -485,6 +497,15 @@ class Form extends FrontendBaseWidget
                                 ),
                                 $settings['error_message']
                             )) {}
+
+                            if ($this->frm->getField($fieldName)->getFileSize('mb') > $maximumFileSize) {
+                                $this->frm->getField($fieldName)->setError(
+                                    sprintf(
+                                        FL::err('MaximumFileSizeExceeded'),
+                                        $maximumFileSize
+                                    )
+                                );
+                            }
                         }
                     }
                 }

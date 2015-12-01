@@ -584,9 +584,10 @@
 					</div>
 					<div class="validation options">
 						<p class="p0">
-							<label for="fileValidation">{$lblValidation|ucfirst}</label>
+							<label for="fileValidation">{$lblValidation|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
 							{$ddmFileValidation}
 						</p>
+						<span id="fileValidationParameterError" class="formError" style="display: none;"></span>
 						<p class="validationParameter" style="display: none;">
 							<label for="fileValidationParameter">{$lblParameter|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
 							{$txtFileValidationParameter}

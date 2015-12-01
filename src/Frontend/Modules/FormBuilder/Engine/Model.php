@@ -25,7 +25,8 @@ class Model
 
         // get form
         $form = (array) FrontendModel::getContainer()->get('database')->getRecord(
-            'SELECT i.id, i.method, i.name, i.email, i.success_message, i.identifier
+            'SELECT i.id, i.method, i.name, i.email, i.success_message, i.identifier,
+             i.send_mail_to_submitter, i.submitter_info_message
              FROM forms AS i
              WHERE i.id = ?',
             $id

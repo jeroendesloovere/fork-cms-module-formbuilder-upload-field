@@ -204,6 +204,14 @@
         <translation language="de"><![CDATA[Dateierweiterung]]></translation>
         <translation language="es"><![CDATA[extensión de archivo]]></translation>
       </item>
+      <item type="error" name="FileExtensionIsInvalid">
+        <translation language="nl"><![CDATA[Bestandsextensie is ongeldig.]]></translation>
+        <translation language="en"><![CDATA[File extension is invalid.]]></translation>
+      </item>
+      <item type="error" name="FileValidationIsRequired">
+        <translation language="nl"><![CDATA[extensie-validatie is verplicht]]></translation>
+        <translation language="en"><![CDATA[file extension validation is required]]></translation>
+      </item>
       <item type="label" name="FormData">
         <translation language="nl"><![CDATA[inzendingen van "%1$s"]]></translation>
         <translation language="en"><![CDATA[submissions for "%1$s"]]></translation>
@@ -269,6 +277,10 @@
         <translation language="en"><![CDATA[image extension]]></translation>
         <translation language="it"><![CDATA[estensione del image]]></translation>
         <translation language="fr"><![CDATA[extension de l'image]]></translation>
+      </item>
+      <item type="error" name="ImageExtensionIsInvalid">
+        <translation language="nl"><![CDATA[Afbeeldingsextensie is ongeldig.]]></translation>
+        <translation language="en"><![CDATA[Image extension is invalid.]]></translation>
       </item>
       <item type="label" name="Method">
         <translation language="nl"><![CDATA[methode]]></translation>
@@ -455,6 +467,10 @@
       <item type="label" name="SubmitterInfoMessage">
         <translation language="nl"><![CDATA[uw boodschap die vermeld moet worden in de bevestigingsmail aan de invuller van dit formulier]]></translation>
         <translation language="en"><![CDATA[what do you want to say in the e-mail to the person who fills in this form]]></translation>
+      </item>
+      <item type="error" name="SubmitterInfoMessageIsRequired">
+        <translation language="nl"><![CDATA[Uw boodschap is verplicht in te vullen als onderstaande checkbox is aangevinkt.]]></translation>
+        <translation language="en"><![CDATA[Your message is required when the checkbox below is checked.]]></translation>
       </item>
       <item type="label" name="Recipient">
         <translation language="nl"><![CDATA[bestemmeling]]></translation>
@@ -1066,6 +1082,18 @@
   </Backend>
   <Frontend>
     <Core>
+      <item type="message" name="FormBuilderSubjectMailToSubmitter">
+        <translation language="nl"><![CDATA[Uw inzending.]]></translation>
+        <translation language="en"><![CDATA[Your contact information.]]></translation>
+      </item>
+      <item type="label" name="InfoMessage">
+        <translation language="nl"><![CDATA[info]]></translation>
+        <translation language="en"><![CDATA[info]]></translation>
+      </item>
+      <item type="error" name="MaximumFileSizeExceeded">
+        <translation language="nl"><![CDATA[Het bestand mag niet groter zijn dan %1$s MB.]]></translation>
+        <translation language="en"><![CDATA[The file may not be larger then %1$s.]]></translation>
+      </item>
       <item type="error" name="TimeIsInvalid">
         <translation language="nl"><![CDATA[Ongeldige tijd]]></translation>
         <translation language="en"><![CDATA[Invalid time]]></translation>

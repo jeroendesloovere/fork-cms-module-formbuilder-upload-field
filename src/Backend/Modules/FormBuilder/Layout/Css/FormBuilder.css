@@ -222,7 +222,7 @@
 
 	/* Pop-ups */
 
-	#tabTextboxBasic, #tabTextboxProperties, #tabTextboxAdvanced, #tabTextareaBasic, #tabTextareaProperties, #tabTextareaAdvanced, #tabDropdownBasic, #tabDropdownProperties, #tabRadiobuttonBasic, #tabRadiobuttonProperties, #tabCheckboxBasic, #tabCheckboxProperties, #tabDatetimeBasic, #tabDatetimeProperties {
+	#tabTextboxBasic, #tabTextboxProperties, #tabTextboxAdvanced, #tabTextareaBasic, #tabTextareaProperties, #tabTextareaAdvanced, #tabDropdownBasic, #tabDropdownProperties, #tabRadiobuttonBasic, #tabRadiobuttonProperties, #tabCheckboxBasic, #tabCheckboxProperties, #tabDatetimeBasic, #tabDatetimeProperties, #tabFileBasic, #tabFileProperties {
 		padding: 0;
 		border-left: 0;
 		border-right: 0;

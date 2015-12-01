@@ -32,21 +32,23 @@ final class FormBuilderSubmittedMailToSubmitterSubscriber
         $form = $event->getForm();
 
         // need to send mail
-        if ($form['send_mail_to_subscriber'] == 'Y') {
+        if (isset($form['send_mail_to_submitter']) && $form['send_mail_to_submitter'] == 'Y') {
             // build our message
             $from = FrontendModel::get('fork.settings')->get('Core', 'mailer_from');
-            
+
             // build data
             $data = $event->getData();
-            $data['submitter_info_message'] = $form['submitter_info_message'];
+            $data['submitter_info_message'] = array(
+                'label' => ucfirst(FL::lbl('InfoMessage')),
+                'value' => serialize(strip_tags($form['submitter_info_message'])),
+            );
 
             $fieldData = $this->getEmailFields($data);
-            $message = \Common\Mailer\Message::newInstance(sprintf(
-                    FL::getMessage('FormBuilderSubject'),
-                    $form['name']
-                ))
+            $message = \Common\Mailer\Message::newInstance(
+                    FL::getMessage('FormBuilderSubjectMailToSubmitter')
+                )
                 ->parseHtml(
-                    FRONTEND_MODULES_PATH . '/FormBuilder/Layout/Templates/Mails/Form.tpl',
+                    FRONTEND_MODULES_PATH . '/FormBuilder/Layout/Templates/Mails/FormToSubmitter.tpl',
                     array(
                         'sentOn' => time(),
                         'name' => $form['name'],
