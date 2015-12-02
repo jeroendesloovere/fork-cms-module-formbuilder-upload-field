@@ -44,11 +44,11 @@
 			<div class="options">
 				<div class="heading">
 					<h3>
-						<label for="receiverInfoMessage">{$lblReceiverInfoMessage|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
+						<label for="receiverInfoMessage">{$lblSubmitterInfoMessage|ucfirst}<abbr title="{$lblRequiredField}">*</abbr></label>
 					</h3>
 				</div>
 				<div class="optionsRTE">
-					{$txtReceiverInfoMessage} {$txtReceiverInfoMessageError}
+					{$txtSubmitterInfoMessage} {$txtSubmitterInfoMessageError}
 				</div>
 				<div class="options">
 					<label>{$chkSendMailToSubmitter} {$lblSendMailToSubmitter}?</label>

@@ -55,7 +55,7 @@ class Add extends BackendBaseActionAdd
         $this->frm->addText('email');
         $this->frm->addText('identifier', BackendFormBuilderModel::createIdentifier());
         $this->frm->addEditor('success_message');
-        $this->frm->addCheckbox('send_mail_to_submitter')
+        $this->frm->addCheckbox('send_mail_to_submitter');
         $this->frm->addEditor('submitter_info_message');
     }
 
