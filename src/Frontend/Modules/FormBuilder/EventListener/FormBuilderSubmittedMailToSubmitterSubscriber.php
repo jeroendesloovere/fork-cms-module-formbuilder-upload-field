@@ -44,6 +44,16 @@ final class FormBuilderSubmittedMailToSubmitterSubscriber
             );
 
             $fieldData = $this->getEmailFields($data);
+
+            // check if we have a replyTo email set
+            foreach ($form['fields'] as $field) {
+                if (array_key_exists('reply_to', $field['settings']) &&
+                    $field['settings']['reply_to'] === true
+                ) {
+                    $from['email'] = $fieldData[$field['id']]['value'];
+                }
+            }
+
             $message = \Common\Mailer\Message::newInstance(
                     FL::getMessage('FormBuilderSubjectMailToSubmitter')
                 )
@@ -56,8 +66,8 @@ final class FormBuilderSubmittedMailToSubmitterSubscriber
                     ),
                     true
                 )
-                ->setTo($form['email'])
-                ->setFrom(array($from['email'] => $from['name']))
+                ->setTo($from['email'])
+                ->setFrom(array($form['email'] => ''))
             ;
 
             $this->mailer->send($message);
