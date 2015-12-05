@@ -35,6 +35,7 @@ final class FormBuilderSubmittedMailToSubmitterSubscriber
         if (isset($form['send_mail_to_submitter']) && $form['send_mail_to_submitter'] == 'Y') {
             // build our message
             $from = FrontendModel::get('fork.settings')->get('Core', 'mailer_from');
+            $to = $form['email'];
 
             // build data
             $data = $event->getData();
@@ -50,7 +51,9 @@ final class FormBuilderSubmittedMailToSubmitterSubscriber
                 if (array_key_exists('reply_to', $field['settings']) &&
                     $field['settings']['reply_to'] === true
                 ) {
-                    $from['email'] = $fieldData[$field['id']]['value'];
+                    $to = array(
+                        'email' => $fieldData[$field['id']]['value'],
+                    );
                 }
             }
 
@@ -66,8 +69,8 @@ final class FormBuilderSubmittedMailToSubmitterSubscriber
                     ),
                     true
                 )
-                ->setTo($from['email'])
-                ->setFrom(array($form['email'] => ''))
+                ->setFrom(array($from['email'] => $from['name']))
+                ->setTo($to['email'])
             ;
 
             $this->mailer->send($message);

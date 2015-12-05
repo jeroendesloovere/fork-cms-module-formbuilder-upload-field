@@ -49,8 +49,8 @@ final class FormBuilderSubmittedMailSubscriber
                     ),
                     true
                 )
-                ->setTo($form['email'])
                 ->setFrom(array($from['email'] => $from['name']))
+                ->setTo($form['email'])
             ;
 
             // check if we have a replyTo email set
