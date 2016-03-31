@@ -32,6 +32,10 @@ More info on how to work with GitHub on help.github.com.
 
 ## Credits
 
+- [Dieter Vanden Eynde](https://github.com/dieterve)
+- [Tijs Verkoyen](https://github.com/tijsverkoyen)
+- [Thomas Deceuninck](https://github.com/decthomas)
+- [Wouter Sioen](https://github.com/woutersioen)
 - [Jeroen Desloovere](https://github.com/jeroendesloovere)
 - [All Contributors](https://github.com/jeroendesloovere/fork-cms-module-formbuilder-upload-field/contributors)
 
