@@ -1,8 +1,10 @@
 # Fork CMS FormBuilder module + upload-field
 
-> The Core Fork CMS FormBuilder does not have "file or image upload field". 
-> This module has this field.
+> This is a copy of the [original Fork CMS FormBuilder](https://github.com/forkcms/forkcms), but in this one you can add "file or image-upload" field.
 
+Notes:
+* Uploading files has a potential security risk! Use at own risk.
+* The Fork CMS community is talking about integrating a secure field upload functionality. But as of speaking (31/03/2016), it doesn't exist in the core.
 
 ## Documentation
 
